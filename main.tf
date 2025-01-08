@@ -7,7 +7,7 @@ provider "google" {
 resource "google_compute_instance" "ansible_ready_instance" {
   name         = "ansible-instance"
   machine_type = "e2-small"
-  zone         = "us-central1"
+  zone         = "Any"
 
   boot_disk {
     initialize_params {
