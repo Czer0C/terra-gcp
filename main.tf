@@ -7,7 +7,7 @@ provider "google" {
 resource "google_compute_instance" "ansible_ready_instance" {
   name         = "ansible-instance"
   machine_type = "e2-small"
-  zone         = "Any"
+  zone         = "us-central1-a"
 
   boot_disk {
     initialize_params {
@@ -21,7 +21,7 @@ resource "google_compute_instance" "ansible_ready_instance" {
   }
 
   metadata = {
-    ssh-keys = "gcp:$(cat ~/.ssh/id_ed25519.pub)"
+    ssh-keys = "gcp:${file("~/.ssh/id_ed25519.pub")}"
   }
 
   tags = ["allow-ssh"]
