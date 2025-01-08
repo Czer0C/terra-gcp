@@ -1,0 +1,6 @@
+# Ignore everything
+*
+
+# Except the required files for the docker image
+!index.js
+!package.json

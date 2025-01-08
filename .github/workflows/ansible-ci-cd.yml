@@ -1,0 +1,31 @@
+name: CI/CD with Ansible
+
+on:
+  push:
+    branches:
+      - main 
+
+jobs:
+  ansible:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/roadmap
+          chmod 600 ~/.ssh/roadmap
+          
+          # Extract the ansible_host from the inventory file
+          HOST=$(grep 'ansible_host' ansible/inv.ini | cut -d'=' -f2 | xargs)
+          echo "Using host: $HOST"
+          
+          # Add the host to known_hosts
+          ssh-keyscan -H $HOST >> ~/.ssh/known_hosts
+
+      - name: Run Ansible Playbook
+        run: |
+          ansible-playbook -i ansible/inv.ini ansible/setup-run-docker.yml
