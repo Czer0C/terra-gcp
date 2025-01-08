@@ -16,8 +16,8 @@ jobs:
       - name: Set up SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/gcp
-          chmod 600 ~/.ssh/gcp
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
           
           # Extract the ansible_host from the inventory file
           HOST=$(grep 'ansible_host' ansible/inv.ini | cut -d'=' -f2 | xargs)
