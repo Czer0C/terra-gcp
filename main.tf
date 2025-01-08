@@ -1,5 +1,5 @@
 provider "google" {
-  credentials = file("~/.ssh/key.json")
+  credentials = file("~/.ssh/gcp.json")
   project = "video-streaming-446003"
   region  = "us-central1"
 }
