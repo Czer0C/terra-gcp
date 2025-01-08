@@ -1,5 +1,5 @@
 provider "google" {
-  credentials = file("~/.ssh/gcp.json")
+  credentials = file("/home/divin/.ssh/gcp.json")
   project = "video-streaming-446003"
   region  = "us-central1"
 }
@@ -7,7 +7,7 @@ provider "google" {
 resource "google_compute_instance" "ansible_ready_instance" {
   name         = "ansible-instance"
   machine_type = "e2-small"
-  zone         = "europe-north1-a"
+  zone         = "us-central1"
 
   boot_disk {
     initialize_params {
@@ -21,7 +21,7 @@ resource "google_compute_instance" "ansible_ready_instance" {
   }
 
   metadata = {
-    ssh-keys = "your-username:$(cat ~/.ssh/id_ed25519.pub)"
+    ssh-keys = "gcp:$(cat ~/.ssh/id_ed25519.pub)"
   }
 
   tags = ["allow-ssh"]
